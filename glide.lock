@@ -1,5 +1,5 @@
 hash: 42560bc98c1fa4f647cb68bb6d523eab6ae7757639fe6fa80c2c2c92b2b0deba
-updated: 2017-02-28T15:24:10.651564715-08:00
+updated: 2017-03-09T21:09:26.580030674-08:00
 imports:
 - name: cloud.google.com/go
   version: 3b1ae45394a234c385be014e9a488f2bb6eef821
@@ -8,10 +8,14 @@ imports:
   - internal
 - name: github.com/armon/go-radix
   version: 4239b77079c7b5d1243b7b4736304ce8ddb6f0f2
+- name: github.com/Azure/go-ansiterm
+  version: fa152c58bc15761d0200cb75fe958b89a9d4888e
+  subpackages:
+  - winterm
 - name: github.com/blang/semver
   version: 31b736133b98f26d5e078ec9eb591666edfd091f
 - name: github.com/coreos/etcd
-  version: 17ae440991da3bdb2df4309936dd2074f66ec394
+  version: 0c38f1ff8def465328b5c7103ae0f0eb4c8b9550
   subpackages:
   - client
   - pkg/pathutil
@@ -47,6 +51,11 @@ imports:
   subpackages:
   - digest
   - reference
+- name: github.com/docker/docker
+  version: 239645c08d63c747eee523ba3459402172120bd8
+  subpackages:
+  - pkg/term
+  - pkg/term/windows
 - name: github.com/docopt/docopt-go
   version: 784ddc588536785e7299f7272f39101f7faccc3f
 - name: github.com/eapache/channels
@@ -59,7 +68,7 @@ imports:
   - log
   - swagger
 - name: github.com/fsnotify/fsnotify
-  version: a904159b9206978bb6d53fcc7a769e5cd726c737
+  version: 7d7316ed6e1ed2de075aab8dfc76de5d158d66e1
 - name: github.com/ghodss/yaml
   version: 73d445a93680fa1a78ae23a5839bad48f32ba1ee
 - name: github.com/go-openapi/jsonpointer
@@ -100,7 +109,7 @@ imports:
 - name: github.com/imdario/mergo
   version: 6633656539c1639d9d78127b7d47c622b5d7b6dc
 - name: github.com/influxdata/influxdb
-  version: c83c742b49f2a22ab997081c19ea0fb44f2bb8fc
+  version: 7d2eac173b6b720c1a5c0a5616a96f3e013a758e
   subpackages:
   - client/v2
   - models
@@ -124,13 +133,15 @@ imports:
 - name: github.com/mcuadros/go-version
   version: 257f7b9a7d87427c8d7f89469a5958d57f8abd7c
 - name: github.com/mitchellh/go-ps
-  version: e2d21980687ce16e58469d98dcee92d27fbbd7fb
+  version: 4fdf99ab29366514c69ccccddab5dc58b8d84062
+- name: github.com/mitchellh/go-wordwrap
+  version: ad45545899c7b13c020ea92b2072220eefad42b8
 - name: github.com/mitchellh/mapstructure
-  version: db1efb556f84b25a0a13a04aad883943538ad2e0
+  version: 53818660ed4955e899c0bcafa97299a388bd7c8e
 - name: github.com/olekukonko/tablewriter
   version: febf2d34b54a69ce7530036c7503b1c9fbfdf0bb
 - name: github.com/onsi/ginkgo
-  version: bb93381d543b0e5725244abe752214a110791d01
+  version: ab07225d112dc7a93c289ac5b2e12735c2c46035
   subpackages:
   - config
   - extensions/table
@@ -167,7 +178,7 @@ imports:
 - name: github.com/pelletier/go-buffruneio
   version: c37440a7cf42ac63b919c752ca73a85067e05992
 - name: github.com/pelletier/go-toml
-  version: 361678322880708ac144df8575e6f01144ba1404
+  version: 13d49d4606eb801b8f01ae542b4afc4c6ee3d84a
 - name: github.com/projectcalico/go-json
   version: 6219dc7339ba20ee4c57df0a8baac62317d19cb1
   subpackages:
@@ -215,7 +226,7 @@ imports:
   subpackages:
   - mem
 - name: github.com/spf13/cast
-  version: f820543c3592e283e311a60d2a600a664e39f6f7
+  version: ce135a4ebeee6cfe9a26c93ee0d37825f26113c7
 - name: github.com/spf13/jwalterweatherman
   version: fa7ca7e836cf3a8bb4ebf799f472c12d7e903d66
 - name: github.com/spf13/pflag
@@ -259,7 +270,7 @@ imports:
   - jws
   - jwt
 - name: golang.org/x/sys
-  version: 21f2569f6feb83b68a25c98c1b20eca5d4e1e6ae
+  version: 99f16d856c9836c42d24e7ab64ea72916925fa97
   subpackages:
   - unix
 - name: golang.org/x/text
@@ -429,7 +440,7 @@ imports:
   - transport
 testImports:
 - name: github.com/onsi/gomega
-  version: c463cd2a8578290d4be7a25cba69de81cf35785e
+  version: 1de7ab2df9105aa5c15c4d7e14a8a514e3cb8d4b
   subpackages:
   - format
   - internal/assertion
