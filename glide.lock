@@ -1,5 +1,5 @@
 hash: 42560bc98c1fa4f647cb68bb6d523eab6ae7757639fe6fa80c2c2c92b2b0deba
-updated: 2017-03-09T21:09:26.580030674-08:00
+updated: 2017-07-24T18:30:31.132656829-07:00
 imports:
 - name: cloud.google.com/go
   version: 3b1ae45394a234c385be014e9a488f2bb6eef821
@@ -220,7 +220,7 @@ imports:
 - name: github.com/satori/go.uuid
   version: b061729afc07e77a8aa4fad0a2fd840958f1942a
 - name: github.com/Sirupsen/logrus
-  version: 0208149b40d863d2c1a2f8fe5753096a9cf2cc8b
+  version: ba1b36c82c5e05c4f912a88eab0dcd91a171688f
 - name: github.com/spf13/afero
   version: 9be650865eab0c12963d8753212f4f9c66cdcf12
   subpackages:

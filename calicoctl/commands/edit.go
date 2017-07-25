@@ -12,14 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO
-// Better error handling
-// Distinguish between deleted updates and other failures
-// Copyright stuff related to k8s
-// Windows/Linus newlines etc.
-// Need to verify that user is not adding new entry or changing resource identifiers
-// CreateResourcesFromBytes needs to be converted to slice ... this indicates a bug
-//   in the CreateResourcesFromBytes which must be returning structs rather than pointers.
+// TODO:
+// Need to update glide.yaml with the new libcalico-go version once it is merged
 
 package commands
 
@@ -38,6 +32,7 @@ import (
 	"github.com/projectcalico/calicoctl/calicoctl/k8s-utils/editor"
 	"github.com/projectcalico/calicoctl/calicoctl/resourcemgr"
 	"github.com/projectcalico/libcalico-go/lib/api/unversioned"
+	"github.com/projectcalico/libcalico-go/lib/validator"
 )
 
 func Edit(args []string) {
@@ -174,9 +169,20 @@ Description:
 
 		// Convert the file into a set of resources.  If this succeeds
 		// then it passes validation, so exit this loop.
+		var editedObjs []unversioned.ResourceObject
+		var prevObjs []unversioned.ResourceObject
 		resources, err = resourcemgr.CreateResourcesFromBytes(b)
 		if err == nil {
-			break
+			editedObjs, err = convertToSliceOfResourceObjects(resources)
+			if err == nil {
+				prevObjs, err = convertToSliceOfResourceObjects(convertToSliceOfResources(results.resources))
+				if err == nil {
+					err = validator.ValidateIDFieldsSame(prevObjs, editedObjs)
+					if err == nil {
+						break
+					}
+				}
+			}
 		}
 
 		log.WithError(err).Debug("Failed validation, re-enter editor.")
@@ -191,19 +197,21 @@ Description:
 	// exit.
 	resources = convertToSliceOfResources(resources)
 	failed := []unversioned.Resource{}
+	var failureErr error
 	for _, resource := range resources {
 		if _, err = executeResourceAction(ac, resource); err != nil {
 			failed = append(failed, resource)
+			failureErr = err
 		}
 	}
 	if len(failed) == 0 {
 		fmt.Printf("Successfully updated %d resources.\n", len(resources))
 	} else {
 		if len(failed) == len(resources) {
-			fmt.Printf("Failed to update any resource, last error: %s\n", err)
+			fmt.Printf("Failed to update any resource, last error: %s\n", failureErr)
 		} else {
 			fmt.Printf("Failed to update %d/%d resources, last error: %s\n",
-				len(failed), len(resources), err)
+				len(failed), len(resources), failureErr)
 		}
 
 		f, err := os.Create(file)

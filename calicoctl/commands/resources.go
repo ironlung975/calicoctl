@@ -102,6 +102,18 @@ func convertToSliceOfResources(loaded interface{}) []unversioned.Resource {
 	return r
 }
 
+func convertToSliceOfResourceObjects(resources []unversioned.Resource) ([]unversioned.ResourceObject, error) {
+	rObjects := make([]unversioned.ResourceObject, len(resources))
+	for i, resource := range resources {
+		obj, ok := resource.(unversioned.ResourceObject)
+		if !ok {
+			return []unversioned.ResourceObject{}, fmt.Errorf("Cannot convert %s Resource to Resource Object", resource.GetTypeMetadata().Kind)
+		}
+		rObjects[i] = obj
+	}
+	return rObjects, nil
+}
+
 // getResourceFromArguments returns a resource instance from the command line arguments.
 func getResourceFromArguments(args map[string]interface{}) (unversioned.Resource, error) {
 	kind := args["<KIND>"].(string)
